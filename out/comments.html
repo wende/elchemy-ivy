@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Comments</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="fonts.css">
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="pygments.css">
+    
+  </head>
+
+  <body class="node-comments node">
+
+    <header class="masthead">
+      <h1><a href="index.html">Elchemy</a></h1>
+      
+        <p class="tagline">Language with Elm's syntax and Erlang's platform</p>
+      
+      <nav class="menu">
+        <input id="menu-check" type="checkbox"/>
+        <label id="menu-label" for="menu-check" class="unselectable">
+          <span class="icon close-icon">✕</span>
+          <span class="icon open-icon">☰</span>
+          <span class="text">Menu</span>
+        </label>
+        <ul>
+<li><a href="index.html">Home</a></li>
+<li>
+<p><a href="getting-started.html">Basic Constructs</a></p>
+<ul>
+<li><a href="modules.html">Modules/imports</a></li>
+<li><a href="functions.html">Functions/currying</a></li>
+<li><a href="basic-types.html">Basic Types</a></li>
+<li><a href="union-types.html">Union Types</a></li>
+<li><a href="type-aliases.html">Type Aliases</a></li>
+<li><a href="structs.html">Structs</a></li>
+<li><a href="comments.html">Comments</a></li>
+</ul>
+</li>
+<li>
+<p><a href="interop.html">Interop</a></p>
+<ul>
+<li><a href="calling-elchemy.html">Calling Elchemy</a></li>
+<li><a href="calling-elixir.html">Calling Elixir</a></li>
+</ul>
+</li>
+<li><a href="about.html">About</a></li>
+</ul>
+      </nav>
+    </header>
+
+    <article class="main">
+      <header class="title">
+        <h1>Comments</h1>
+        
+        <hr>
+      </header>
+      <p>
+In Elchemy there is a couple types of comments.
+</p>
+<p>
+First one are regular elm comments:
+</p>
+<pre class="lang-elm pygments" data-lang="elm">
+<span class="c1">-- My comments</span>
+</pre>
+<p>
+Which are always ignored by the compiler and won't be included in the compiled output file
+</p>
+<p>
+Second type of a comment is a block comment
+</p>
+<pre class="lang-elm pygments" data-lang="elm">
+<span class="cm">{- block comment -}</span>
+</pre>
+<p>
+Which are included in the output file, but can be only used as a top level construct
+</p>
+<p>
+Another one and probably most important is a doc-comment.
+</p>
+<pre class="lang-elm pygments" data-lang="elm">
+<span class="cm">{-| Doc coment -}</span>
+</pre>
+<p>
+Doc-comments follow these rules:
+</p>
+<ol>
+<li>
+First doc comment in a file always compiles to a <code>@moduledoc</code>
+</li>
+<li>
+Doc comments before types compile to <code>@typedoc</code>
+</li>
+<li>
+Doc comments before functions compile to <code>@doc</code>
+</li>
+<li>
+Doc comments before type aliases don't compile to anything and for now should be avoided
+</li>
+<li>
+A doc comment with 4 space indentation and containing a <code>==</code> comparison in it will be compiled to a one line doctest
+</li>
+</ol>
+<p>
+Doctest example:
+</p>
+<pre class="lang-elm pygments" data-lang="elm">
+<span class="cm">{-| My function add two values</span>
+<span class="cm">        myFunction 1 2 == 3</span>
+<span class="cm"> -}</span>
+</pre>
+<p>
+Would end up being
+</p>
+<pre class="lang-elixir pygments" data-lang="elixir">
+<span class="na">@doc</span> <span class="sh">&quot;&quot;&quot;</span>
+<span class="sh">     My function and two values</span>
+
+<span class="sh">        iex&gt; my_function().(1).(2)</span>
+<span class="sh">        3</span>
+<span class="sh"> &quot;&quot;&quot;</span>
+</pre>
+
+    </article>
+
+    
+
+  </body>
+</html>

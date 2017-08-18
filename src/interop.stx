@@ -1,0 +1,6 @@
+---
+title: Interoperability
+---
+
+Elchemy alows both way interoperability.
+Which means that both Elixir can call generated Elchemy code without any additional constraints and Elchemy can call Elixir code without sacrificing its type safety.

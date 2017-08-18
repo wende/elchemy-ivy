@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Function defintion and currying</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="fonts.css">
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="pygments.css">
+    
+  </head>
+
+  <body class="node-functions node">
+
+    <header class="masthead">
+      <h1><a href="index.html">Elchemy</a></h1>
+      
+        <p class="tagline">Language with Elm's syntax and Erlang's platform</p>
+      
+      <nav class="menu">
+        <input id="menu-check" type="checkbox"/>
+        <label id="menu-label" for="menu-check" class="unselectable">
+          <span class="icon close-icon">✕</span>
+          <span class="icon open-icon">☰</span>
+          <span class="text">Menu</span>
+        </label>
+        <ul>
+<li><a href="index.html">Home</a></li>
+<li>
+<p><a href="getting-started.html">Basic Constructs</a></p>
+<ul>
+<li><a href="modules.html">Modules/imports</a></li>
+<li><a href="functions.html">Functions/currying</a></li>
+<li><a href="basic-types.html">Basic Types</a></li>
+<li><a href="union-types.html">Union Types</a></li>
+<li><a href="type-aliases.html">Type Aliases</a></li>
+<li><a href="structs.html">Structs</a></li>
+<li><a href="comments.html">Comments</a></li>
+</ul>
+</li>
+<li>
+<p><a href="interop.html">Interop</a></p>
+<ul>
+<li><a href="calling-elchemy.html">Calling Elchemy</a></li>
+<li><a href="calling-elixir.html">Calling Elixir</a></li>
+</ul>
+</li>
+<li><a href="about.html">About</a></li>
+</ul>
+      </nav>
+    </header>
+
+    <article class="main">
+      <header class="title">
+        <h1>Function defintion and currying</h1>
+        
+        <hr>
+      </header>
+      <h3 id="function-definition">
+Function definition
+</h3>
+<p>
+To define a function you <strong>need</strong> to declare a type for it with
+</p>
+<pre class="lang-elm pygments" data-lang="elm">
+<span class="nv">functionName</span> <span class="nf">:</span> <span class="kt">ArgType</span> <span class="nf">-&gt;</span> <span class="kt">ArgType2</span> <span class="nf">-&gt;</span> <span class="kt">ReturnType</span>
+</pre>
+<p>
+And a function body underneath
+</p>
+<pre class="lang-elm pygments" data-lang="elm">
+<span class="nv">functionName</span> <span class="nv">argOne</span> <span class="nv">argTwo</span> <span class="nf">=</span> <span class="nv">body</span>
+</pre>
+<p>
+This will output following defintion:
+</p>
+<pre class="lang-elixir pygments" data-lang="elixir">
+<span class="n">curry</span> <span class="n">function_name</span><span class="o">/</span><span class="mi">2</span>
+<span class="na">@spec</span> <span class="n">function_name</span><span class="p">(</span><span class="n">arg_type</span><span class="p">,</span> <span class="n">arg_type2</span><span class="p">)</span> <span class="o">::</span> <span class="n">return_type</span>
+<span class="kd">def</span> <span class="n">function_name</span><span class="p">(</span><span class="n">arg_one</span><span class="p">,</span> <span class="n">arg_two</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">body</span>
+<span class="k">end</span>
+</pre>
+<p>
+Following rules apply:
+</p>
+<ol>
+<li>
+A function will use <code>def</code> or <code>defp</code> based on <code>exposing</code> clause at the top of the module
+</li>
+<li>
+The name of the function as well as its spec will always be snake_cased version of the camelCase name
+</li>
+<li>
+<code>curry function/arity</code> is a construct that makes the function redefined in a form that takes 0 arguments, and returns X times curried function (2 times in this example). Which means that from elixir our function can be called both as: <code>function_name(arg_one, arg_two)</code> or <code>function_name().(arg_one).(arg_two)</code> and it won't have any other effect
+</li>
+<li>
+@spec clause will always resolve types provided, to a most readable and still understandable by the elixir compiler form
+</li>
+</ol>
+<h4 id="curried-definition">
+Curried definition
+</h4>
+<p>
+Because of the curried nature of Elm function definitions we can just make our function return functions
+</p>
+<p>
+For example instead of writing
+</p>
+<pre class="lang-elm pygments" data-lang="elm">
+<span class="nv">addTwo</span> <span class="nf">:</span> <span class="kt">Int</span> <span class="nf">-&gt;</span> <span class="kt">Int</span>
+<span class="nv">addTwo</span> <span class="nv">a</span> <span class="nf">=</span> <span class="mi">2</span> <span class="nf">+</span> <span class="nv">a</span>
+</pre>
+<p>
+We could just write
+</p>
+<pre class="lang-elm pygments" data-lang="elm">
+<span class="nv">addTwo</span> <span class="nf">:</span> <span class="kt">Int</span> <span class="nf">-&gt;</span> <span class="kt">Int</span>
+<span class="nv">addTwo</span> <span class="nf">=</span> <span class="nf">(+)</span> <span class="mi">2</span>
+</pre>
+<p>
+In which case Elchemy will recognise a curried return and still provide you with a 1 and 0 arity functions, not only the 0 one.
+And output of such a definition would look like:
+</p>
+<pre class="lang-elixir pygments" data-lang="elixir">
+<span class="n">curry</span> <span class="n">add_two</span><span class="o">/</span><span class="mi">1</span>
+<span class="na">@spec</span> <span class="n">add_two</span><span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="o">::</span> <span class="n">integer</span>
+<span class="kd">def</span> <span class="n">add_two</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span> <span class="k">do</span>
+   <span class="p">(</span><span class="o">&amp;+/</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span>
+<span class="k">end</span>
+</pre>
+<p>
+Which basically means that Elchemy derives function arity from the type, rathar then function body
+</p>
+
+    </article>
+
+    
+
+  </body>
+</html>

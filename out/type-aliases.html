@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Type Aliases</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="fonts.css">
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="pygments.css">
+    
+  </head>
+
+  <body class="node-type-aliases node">
+
+    <header class="masthead">
+      <h1><a href="index.html">Elchemy</a></h1>
+      
+        <p class="tagline">Language with Elm's syntax and Erlang's platform</p>
+      
+      <nav class="menu">
+        <input id="menu-check" type="checkbox"/>
+        <label id="menu-label" for="menu-check" class="unselectable">
+          <span class="icon close-icon">✕</span>
+          <span class="icon open-icon">☰</span>
+          <span class="text">Menu</span>
+        </label>
+        <ul>
+<li><a href="index.html">Home</a></li>
+<li>
+<p><a href="getting-started.html">Basic Constructs</a></p>
+<ul>
+<li><a href="modules.html">Modules/imports</a></li>
+<li><a href="functions.html">Functions/currying</a></li>
+<li><a href="basic-types.html">Basic Types</a></li>
+<li><a href="union-types.html">Union Types</a></li>
+<li><a href="type-aliases.html">Type Aliases</a></li>
+<li><a href="structs.html">Structs</a></li>
+<li><a href="comments.html">Comments</a></li>
+</ul>
+</li>
+<li>
+<p><a href="interop.html">Interop</a></p>
+<ul>
+<li><a href="calling-elchemy.html">Calling Elchemy</a></li>
+<li><a href="calling-elixir.html">Calling Elixir</a></li>
+</ul>
+</li>
+<li><a href="about.html">About</a></li>
+</ul>
+      </nav>
+    </header>
+
+    <article class="main">
+      <header class="title">
+        <h1>Type Aliases</h1>
+        
+        <hr>
+      </header>
+      <p>
+In Elchemy Type Aliases are completely virtual constructs that never make it out of the compiler.
+However whenever a type alias is used throughout your code Elchemy will expand the alias and substitute with the right replacement.
+</p>
+<p>
+For instance if we write
+</p>
+<pre class="lang-elm pygments" data-lang="elm">
+<span class="kr">type</span> <span class="kr">alias</span> <span class="kt">MyList</span> <span class="nf">=</span> <span class="kt">List</span> <span class="kt">Int</span>
+
+<span class="nv">a</span> <span class="nf">:</span> <span class="kt">MyList</span>
+<span class="nv">a</span> <span class="nf">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</pre>
+<p>
+The Elixir output would be
+</p>
+<pre class="lang-elixir pygments" data-lang="elixir">
+<span class="n">a</span> <span class="p">:</span> <span class="n">list</span><span class="p">(</span><span class="n">integer</span><span class="p">())</span>
+<span class="kd">def</span> <span class="n">a</span><span class="p">(),</span> <span class="ss">do</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</pre>
+<p>
+With correct type resolution
+</p>
+<h3 id="type-aliases-as-constructors">
+Type aliases as constructors
+</h3>
+<p>
+If a type alias represents a structure like
+</p>
+<pre class="lang-elm pygments" data-lang="elm">
+<span class="kr">type</span> <span class="kr">alias</span> <span class="kt">Human</span> <span class="nf">=</span> <span class="p">{</span> <span class="nv">name</span> <span class="nf">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">age</span> <span class="nf">:</span> <span class="kt">Int</span> <span class="p">}</span>
+</pre>
+<p>
+You can use the name of an alias as a function to quickly instatiate a struct
+. For instance:
+</p>
+<pre class="lang-elm pygments" data-lang="elm">
+<span class="kt">Human</span> <span class="s">&quot;Krzysztof&quot;</span> <span class="mi">22</span>
+</pre>
+
+    </article>
+
+    
+
+  </body>
+</html>

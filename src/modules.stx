@@ -1,0 +1,42 @@
+---
+title: Module definition and imports
+---
+
+To define a module in Elchemy you need to use a
+
+::: elm
+    module ModuleName exposing (..)
+
+Which would directly translate to `defmodule` block where functions/types mentioned in the `exposing` clause will automatically use `def` or `defp`
+
+### Imports
+
+There are two types of imports in Elchemy. One is a import without exposed functions like
+
+::: elm
+    import SomeModule
+
+Which would directly translate to
+
+::: elixir
+    alias SomeModule
+
+because it doesn't import any of the exposed contents, only makes sure
+that the module is in our namespace.
+
+And
+
+::: elm
+    import SomeModule exposing (funA, TypeA, funB)
+
+Which outputs
+
+::: elixir
+    import SomeModule, only: [{:fun_a, 0}, {:fun_b, 0}]
+
+Which would put SomeModule into our namespace and also allow us to use
+`fun_a` and `fun_b` without explicitly adding a module name before them.
+
+There are two important constructs to point out here though.
+First one being that our type imports got ommitted. That's because types and type aliases are virtual constructs only for Elchemy compilers use, they don't have any meaning inside Elixirs context.
+And the second one, that the imported funtions always take the arity of 0. That's because Elchemy _always_ uses the curried version of the function, uncurried versions are only for external use, therefore there is no reason to import them in our compiled module.

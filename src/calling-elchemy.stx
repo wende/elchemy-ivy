@@ -1,0 +1,5 @@
+---
+title: Calling Elchemy
+---
+
+To call generated code from Elchemy you don't need anything special. Each function exposed from a module can be called either in it's regular or curried form. The only thing that is worth considering is that all higher order functions expected by elchemy will be in a curried form, which means a `List.foldl` as a first argument will take `fn a -> fn acc -> body end end` instead of `fn a, acc -> body end ` as you could expect

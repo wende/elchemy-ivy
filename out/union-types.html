@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Union types</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="fonts.css">
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="pygments.css">
+    
+  </head>
+
+  <body class="node-union-types node">
+
+    <header class="masthead">
+      <h1><a href="index.html">Elchemy</a></h1>
+      
+        <p class="tagline">Language with Elm's syntax and Erlang's platform</p>
+      
+      <nav class="menu">
+        <input id="menu-check" type="checkbox"/>
+        <label id="menu-label" for="menu-check" class="unselectable">
+          <span class="icon close-icon">✕</span>
+          <span class="icon open-icon">☰</span>
+          <span class="text">Menu</span>
+        </label>
+        <ul>
+<li><a href="index.html">Home</a></li>
+<li>
+<p><a href="getting-started.html">Basic Constructs</a></p>
+<ul>
+<li><a href="modules.html">Modules/imports</a></li>
+<li><a href="functions.html">Functions/currying</a></li>
+<li><a href="basic-types.html">Basic Types</a></li>
+<li><a href="union-types.html">Union Types</a></li>
+<li><a href="type-aliases.html">Type Aliases</a></li>
+<li><a href="structs.html">Structs</a></li>
+<li><a href="comments.html">Comments</a></li>
+</ul>
+</li>
+<li>
+<p><a href="interop.html">Interop</a></p>
+<ul>
+<li><a href="calling-elchemy.html">Calling Elchemy</a></li>
+<li><a href="calling-elixir.html">Calling Elixir</a></li>
+</ul>
+</li>
+<li><a href="about.html">About</a></li>
+</ul>
+      </nav>
+    </header>
+
+    <article class="main">
+      <header class="title">
+        <h1>Union types</h1>
+        
+        <hr>
+      </header>
+      <p>
+Elchemy (exactly like Elm) uses Tagged Union types.
+What it means is basically you can define a type by adding a tag to
+an already existing value, and a meaning of tag is only to inform what is the
+context of that value.
+</p>
+<p>
+For instance
+</p>
+<pre class="lang-elm pygments" data-lang="elm">
+<span class="kr">type</span> <span class="kt">Shape</span> <span class="nf">=</span> <span class="kt">Dot</span> <span class="kt">Int</span> <span class="nf">|</span> <span class="kt">Line</span> <span class="kt">Int</span> <span class="kt">Int</span> <span class="nf">|</span> <span class="kt">Triangle</span> <span class="kt">Int</span> <span class="kt">Int</span> <span class="kt">Int</span>
+</pre>
+<p>
+What's important is that Dot, Line and Triangle are just tags, so they can't be used as a type name (in function signature for example)
+The only purpose of these is to pattern match on them in constructs like case..of, let..in or in arguments
+</p>
+<p>
+Elchemy represents tagged unions as tuples with a first element being an atom with snake_cased tag name, or - in case of just tags - as a single atom value.
+</p>
+<p>
+For example our previously defined type would translate to
+</p>
+<pre class="lang-elixir pygments" data-lang="elixir">
+<span class="na">@type</span> <span class="n">shape</span> <span class="o">::</span> <span class="p">{</span> <span class="ss">:dot</span><span class="p">,</span> <span class="n">integer</span><span class="p">()</span> <span class="p">}</span> <span class="o">|</span>
+               <span class="p">{</span> <span class="ss">:line</span><span class="p">,</span> <span class="n">integer</span><span class="p">(),</span> <span class="n">integer</span><span class="p">()</span> <span class="p">}</span> <span class="o">|</span>
+               <span class="p">{</span> <span class="ss">:triangle</span><span class="p">,</span> <span class="n">integer</span><span class="p">(),</span> <span class="n">integer</span><span class="p">(),</span> <span class="n">integer</span><span class="p">()</span> <span class="p">}</span>
+</pre>
+<p>
+But a type like this
+</p>
+<pre class="lang-elm pygments" data-lang="elm">
+<span class="kr">type</span> <span class="kt">Size</span> <span class="nf">=</span> <span class="kt">XS</span> <span class="nf">|</span> <span class="kt">S</span> <span class="nf">|</span> <span class="kt">M</span> <span class="nf">|</span> <span class="kt">L</span> <span class="nf">|</span> <span class="kt">XL</span>
+</pre>
+<p>
+Would translate to
+</p>
+<pre class="lang-elixir pygments" data-lang="elixir">
+<span class="na">@type</span> <span class="n">size</span> <span class="o">::</span> <span class="ss">:x</span> <span class="o">|</span> <span class="ss">:s</span> <span class="o">|</span> <span class="ss">:m</span> <span class="o">|</span> <span class="ss">:l</span> <span class="o">|</span> <span class="ss">:xl</span>
+</pre>
+<h3 id="type-parameters">
+Type Parameters
+</h3>
+<p>
+Types can also take type parameters like
+</p>
+<pre class="lang-elm pygments" data-lang="elm">
+<span class="kr">type</span> <span class="kt">Maybe</span> <span class="nv">x</span> <span class="nf">=</span> <span class="kt">Just</span> <span class="nv">x</span> <span class="nf">|</span> <span class="kt">Nothing</span>
+</pre>
+<p>
+All type parameters will resolve to any() by Elchemy
+</p>
+<h3 id="types-as-constructors">
+Types as constructors
+</h3>
+<p>
+Types can be instantiated using a tag and values it takes.
+For example to instatiate <code>Just Int</code> we would write <code>Just 10</code>.
+If you don't provide all of the parameters, Elchemy will recognize it and
+translate it into a curried function, so that <code>Just</code> instead of turing to <code>:just</code>, it turns to <code>fn x1 -&gt; {:just, x1} end</code>
+</p>
+
+    </article>
+
+    
+
+  </body>
+</html>

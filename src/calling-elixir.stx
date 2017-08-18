@@ -1,0 +1,37 @@
+---
+title: Calling Elixir
+---
+
+To call elixir from Elchemy you need to define a foreing function interface.
+To do that you can use either ffi or tryFfi macro.
+
+Both `ffi` and `tryFfi` require the function to have very specific format, which is:
+
+1. You need to make sure the type signature is correct and adivsably it should contain as simple type structures as possible.
+2. There should be no explicit parameters
+3. The **only** of the function should be an ffi call in a format of:
+`ffi "Module" "function"`
+
+A good example of an ffi call would be
+
+::: elm
+    upcase : String -> String
+    upcase =
+        ffi "String" "upcase"
+
+A generated code of that statement would be
+
+::: elixir
+    @spec upcase(String.t) :: String.t
+    curry upcase/1
+    verify as: String.upcase/1
+    def upcase(a1), do: String.upcase(a1)
+
+Where `verify, as:` is a type safety generator about which you can read more in [testing](@root/testing//) section.
+
+Another type of ffi is tryFfi, which doesn't ensure any type safety,
+but it wraps a call in a try..catch clause and returns the result in
+either {:ok, result} or {:error, err}.
+
+:!! warning
+    You should make sure that tryFfi calls always return type `Result String a`

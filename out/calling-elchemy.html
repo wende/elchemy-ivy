@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Calling Elchemy</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="fonts.css">
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="pygments.css">
+    
+  </head>
+
+  <body class="node-calling-elchemy node">
+
+    <header class="masthead">
+      <h1><a href="index.html">Elchemy</a></h1>
+      
+        <p class="tagline">Language with Elm's syntax and Erlang's platform</p>
+      
+      <nav class="menu">
+        <input id="menu-check" type="checkbox"/>
+        <label id="menu-label" for="menu-check" class="unselectable">
+          <span class="icon close-icon">✕</span>
+          <span class="icon open-icon">☰</span>
+          <span class="text">Menu</span>
+        </label>
+        <ul>
+<li><a href="index.html">Home</a></li>
+<li>
+<p><a href="getting-started.html">Basic Constructs</a></p>
+<ul>
+<li><a href="modules.html">Modules/imports</a></li>
+<li><a href="functions.html">Functions/currying</a></li>
+<li><a href="basic-types.html">Basic Types</a></li>
+<li><a href="union-types.html">Union Types</a></li>
+<li><a href="type-aliases.html">Type Aliases</a></li>
+<li><a href="structs.html">Structs</a></li>
+<li><a href="comments.html">Comments</a></li>
+</ul>
+</li>
+<li>
+<p><a href="interop.html">Interop</a></p>
+<ul>
+<li><a href="calling-elchemy.html">Calling Elchemy</a></li>
+<li><a href="calling-elixir.html">Calling Elixir</a></li>
+</ul>
+</li>
+<li><a href="about.html">About</a></li>
+</ul>
+      </nav>
+    </header>
+
+    <article class="main">
+      <header class="title">
+        <h1>Calling Elchemy</h1>
+        
+        <hr>
+      </header>
+      <p>
+To call generated code from Elchemy you don't need anything special. Each function exposed from a module can be called either in it's regular or curried form. The only thing that is worth considering is that all higher order functions expected by elchemy will be in a curried form, which means a <code>List.foldl</code> as a first argument will take <code>fn a -&gt; fn acc -&gt; body end end</code> instead of <code>fn a, acc -&gt; body end </code> as you could expect
+</p>
+
+    </article>
+
+    
+
+  </body>
+</html>

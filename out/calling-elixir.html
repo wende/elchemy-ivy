@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Calling Elixir</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="fonts.css">
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="pygments.css">
+    
+  </head>
+
+  <body class="node-calling-elixir node">
+
+    <header class="masthead">
+      <h1><a href="index.html">Elchemy</a></h1>
+      
+        <p class="tagline">Language with Elm's syntax and Erlang's platform</p>
+      
+      <nav class="menu">
+        <input id="menu-check" type="checkbox"/>
+        <label id="menu-label" for="menu-check" class="unselectable">
+          <span class="icon close-icon">✕</span>
+          <span class="icon open-icon">☰</span>
+          <span class="text">Menu</span>
+        </label>
+        <ul>
+<li><a href="index.html">Home</a></li>
+<li>
+<p><a href="getting-started.html">Basic Constructs</a></p>
+<ul>
+<li><a href="modules.html">Modules/imports</a></li>
+<li><a href="functions.html">Functions/currying</a></li>
+<li><a href="basic-types.html">Basic Types</a></li>
+<li><a href="union-types.html">Union Types</a></li>
+<li><a href="type-aliases.html">Type Aliases</a></li>
+<li><a href="structs.html">Structs</a></li>
+<li><a href="comments.html">Comments</a></li>
+</ul>
+</li>
+<li>
+<p><a href="interop.html">Interop</a></p>
+<ul>
+<li><a href="calling-elchemy.html">Calling Elchemy</a></li>
+<li><a href="calling-elixir.html">Calling Elixir</a></li>
+</ul>
+</li>
+<li><a href="about.html">About</a></li>
+</ul>
+      </nav>
+    </header>
+
+    <article class="main">
+      <header class="title">
+        <h1>Calling Elixir</h1>
+        
+        <hr>
+      </header>
+      <p>
+To call elixir from Elchemy you need to define a foreing function interface.
+To do that you can use either ffi or tryFfi macro.
+</p>
+<p>
+Both <code>ffi</code> and <code>tryFfi</code> require the function to have very specific format, which is:
+</p>
+<ol>
+<li>
+You need to make sure the type signature is correct and adivsably it should contain as simple type structures as possible.
+</li>
+<li>
+There should be no explicit parameters
+</li>
+<li>
+The <strong>only</strong> of the function should be an ffi call in a format of:
+</li>
+</ol>
+<p>
+<code>ffi "Module" "function"</code>
+</p>
+<p>
+A good example of an ffi call would be
+</p>
+<pre class="lang-elm pygments" data-lang="elm">
+<span class="nv">upcase</span> <span class="nf">:</span> <span class="kt">String</span> <span class="nf">-&gt;</span> <span class="kt">String</span>
+<span class="nv">upcase</span> <span class="nf">=</span>
+    <span class="nv">ffi</span> <span class="s">&quot;String&quot;</span> <span class="s">&quot;upcase&quot;</span>
+</pre>
+<p>
+A generated code of that statement would be
+</p>
+<pre class="lang-elixir pygments" data-lang="elixir">
+<span class="na">@spec</span> <span class="n">upcase</span><span class="p">(</span><span class="nc">String</span><span class="o">.</span><span class="n">t</span><span class="p">)</span> <span class="o">::</span> <span class="nc">String</span><span class="o">.</span><span class="n">t</span>
+<span class="n">curry</span> <span class="n">upcase</span><span class="o">/</span><span class="mi">1</span>
+<span class="n">verify</span> <span class="ss">as</span><span class="p">:</span> <span class="nc">String</span><span class="o">.</span><span class="n">upcase</span><span class="o">/</span><span class="mi">1</span>
+<span class="kd">def</span> <span class="n">upcase</span><span class="p">(</span><span class="n">a1</span><span class="p">),</span> <span class="ss">do</span><span class="p">:</span> <span class="nc">String</span><span class="o">.</span><span class="n">upcase</span><span class="p">(</span><span class="n">a1</span><span class="p">)</span>
+</pre>
+<p>
+Where <code>verify, as:</code> is a type safety generator about which you can read more in <a href="testing.html">testing</a> section.
+</p>
+<p>
+Another type of ffi is tryFfi, which doesn't ensure any type safety,
+but it wraps a call in a try..catch clause and returns the result in
+either {:ok, result} or {:error, err}.
+</p>
+<div class="stx-alert stx-warning">
+<p>
+You should make sure that tryFfi calls always return type <code>Result String a</code>
+</p>
+</div>
+
+    </article>
+
+    
+
+  </body>
+</html>

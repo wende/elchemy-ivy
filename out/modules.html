@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Module definition and imports</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="fonts.css">
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="pygments.css">
+    
+  </head>
+
+  <body class="node-modules node">
+
+    <header class="masthead">
+      <h1><a href="index.html">Elchemy</a></h1>
+      
+        <p class="tagline">Language with Elm's syntax and Erlang's platform</p>
+      
+      <nav class="menu">
+        <input id="menu-check" type="checkbox"/>
+        <label id="menu-label" for="menu-check" class="unselectable">
+          <span class="icon close-icon">✕</span>
+          <span class="icon open-icon">☰</span>
+          <span class="text">Menu</span>
+        </label>
+        <ul>
+<li><a href="index.html">Home</a></li>
+<li>
+<p><a href="getting-started.html">Basic Constructs</a></p>
+<ul>
+<li><a href="modules.html">Modules/imports</a></li>
+<li><a href="functions.html">Functions/currying</a></li>
+<li><a href="basic-types.html">Basic Types</a></li>
+<li><a href="union-types.html">Union Types</a></li>
+<li><a href="type-aliases.html">Type Aliases</a></li>
+<li><a href="structs.html">Structs</a></li>
+<li><a href="comments.html">Comments</a></li>
+</ul>
+</li>
+<li>
+<p><a href="interop.html">Interop</a></p>
+<ul>
+<li><a href="calling-elchemy.html">Calling Elchemy</a></li>
+<li><a href="calling-elixir.html">Calling Elixir</a></li>
+</ul>
+</li>
+<li><a href="about.html">About</a></li>
+</ul>
+      </nav>
+    </header>
+
+    <article class="main">
+      <header class="title">
+        <h1>Module definition and imports</h1>
+        
+        <hr>
+      </header>
+      <p>
+To define a module in Elchemy you need to use a
+</p>
+<pre class="lang-elm pygments" data-lang="elm">
+<span class="kn">module </span><span class="nc">ModuleName</span> <span class="nv">exposing</span> <span class="nf">(..)</span>
+</pre>
+<p>
+Which would directly translate to <code>defmodule</code> block where functions/types mentioned in the <code>exposing</code> clause will automatically use <code>def</code> or <code>defp</code>
+</p>
+<h3 id="imports">
+Imports
+</h3>
+<p>
+There are two types of imports in Elchemy. One is a import without exposed functions like
+</p>
+<pre class="lang-elm pygments" data-lang="elm">
+<span class="kn">import </span><span class="nc">SomeModule</span>
+</pre>
+<p>
+Which would directly translate to
+</p>
+<pre class="lang-elixir pygments" data-lang="elixir">
+<span class="kn">alias</span> <span class="nc">SomeModule</span>
+</pre>
+<p>
+because it doesn't import any of the exposed contents, only makes sure
+that the module is in our namespace.
+</p>
+<p>
+And
+</p>
+<pre class="lang-elm pygments" data-lang="elm">
+<span class="kn">import </span><span class="nc">SomeModule</span> <span class="nv">exposing</span> <span class="p">(</span><span class="nv">funA</span><span class="p">,</span> <span class="kt">TypeA</span><span class="p">,</span> <span class="nv">funB</span><span class="p">)</span>
+</pre>
+<p>
+Which outputs
+</p>
+<pre class="lang-elixir pygments" data-lang="elixir">
+<span class="kn">import</span> <span class="nc">SomeModule</span><span class="p">,</span> <span class="ss">only</span><span class="p">:</span> <span class="p">[{</span><span class="ss">:fun_a</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span> <span class="p">{</span><span class="ss">:fun_b</span><span class="p">,</span> <span class="mi">0</span><span class="p">}]</span>
+</pre>
+<p>
+Which would put SomeModule into our namespace and also allow us to use
+<code>fun_a</code> and <code>fun_b</code> without explicitly adding a module name before them.
+</p>
+<p>
+There are two important constructs to point out here though.
+First one being that our type imports got ommitted. That's because types and type aliases are virtual constructs only for Elchemy compilers use, they don't have any meaning inside Elixirs context.
+And the second one, that the imported funtions always take the arity of 0. That's because Elchemy _always_ uses the curried version of the function, uncurried versions are only for external use, therefore there is no reason to import them in our compiled module.
+</p>
+
+    </article>
+
+    
+
+  </body>
+</html>

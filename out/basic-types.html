@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Basic types</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="fonts.css">
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="pygments.css">
+    
+  </head>
+
+  <body class="node-basic-types node">
+
+    <header class="masthead">
+      <h1><a href="index.html">Elchemy</a></h1>
+      
+        <p class="tagline">Language with Elm's syntax and Erlang's platform</p>
+      
+      <nav class="menu">
+        <input id="menu-check" type="checkbox"/>
+        <label id="menu-label" for="menu-check" class="unselectable">
+          <span class="icon close-icon">✕</span>
+          <span class="icon open-icon">☰</span>
+          <span class="text">Menu</span>
+        </label>
+        <ul>
+<li><a href="index.html">Home</a></li>
+<li>
+<p><a href="getting-started.html">Basic Constructs</a></p>
+<ul>
+<li><a href="modules.html">Modules/imports</a></li>
+<li><a href="functions.html">Functions/currying</a></li>
+<li><a href="basic-types.html">Basic Types</a></li>
+<li><a href="union-types.html">Union Types</a></li>
+<li><a href="type-aliases.html">Type Aliases</a></li>
+<li><a href="structs.html">Structs</a></li>
+<li><a href="comments.html">Comments</a></li>
+</ul>
+</li>
+<li>
+<p><a href="interop.html">Interop</a></p>
+<ul>
+<li><a href="calling-elchemy.html">Calling Elchemy</a></li>
+<li><a href="calling-elixir.html">Calling Elixir</a></li>
+</ul>
+</li>
+<li><a href="about.html">About</a></li>
+</ul>
+      </nav>
+    </header>
+
+    <article class="main">
+      <header class="title">
+        <h1>Basic types</h1>
+        
+        <hr>
+      </header>
+      <p>
+Because Elm and Elixir share a lot of common basic types, there is no need to redefine all of them for Elchemy need. For simplicity and interoperability some of the standard types translate directly to each other.
+</p>
+<p>
+Here is a table of all standard types used in Elchemy environment and their Elixir equivalents:
+</p>
+<ul>
+<li>
+<p>
+Elchemy =&gt; Elixir
+</p>
+</li>
+<li>
+<p>
+a =&gt; any()
+</p>
+</li>
+<li>
+<p>
+comparable =&gt; term()
+</p>
+</li>
+<li>
+<p>
+Int =&gt; integer()
+</p>
+</li>
+<li>
+<p>
+Float =&gt; number()
+</p>
+</li>
+<li>
+<p>
+number =&gt; number()
+</p>
+</li>
+<li>
+<p>
+Bool =&gt; boolean()
+</p>
+</li>
+<li>
+<p>
+Char =&gt; integer()
+</p>
+</li>
+<li>
+<p>
+String =&gt; String.t()
+</p>
+</li>
+<li>
+<p>
+List x =&gt; list()
+</p>
+</li>
+<li>
+<p>
+(1, 2) =&gt; {1, 2}
+</p>
+</li>
+<li>
+<p>
+Maybe Int =&gt; {integer()} | nil
+</p>
+</li>
+<li>
+<p>
+Just x =&gt; {x}
+</p>
+</li>
+<li>
+<p>
+Nothing =&gt; nil
+</p>
+</li>
+<li>
+<p>
+Result x y =&gt; {:ok, y} | {:error, x}
+</p>
+</li>
+<li>
+<p>
+Ok x =&gt; {:ok, x}
+</p>
+</li>
+<li>
+<p>
+Err x =&gt; {:error, x}
+</p>
+</li>
+</ul>
+
+    </article>
+
+    
+
+  </body>
+</html>

@@ -1,0 +1,29 @@
+---
+meta title: Elchemy
+menu title: Introduction
+title: Elchemy
+subtitle: What is it exactly?
+---
+
+Elchemy is a set of tools and frameworks, designed to provide a language and an environment
+as close to [Elm programming language](http://elm-lang.org) as possible, to build server applications
+in a DSL-like manner for Erlang VM platform, with a readable and efficient Elixir code as an output.
+
+## Features
+
+Elchemy inherits many values from its parents: Elm and Elixir
+
+### Elm
+- ML like syntax maximizing expressiveness with additional readability and simplicity constraints
+- Static typing with type inference
+- Tagged union types and type aliases with type parameters (aka generic types)
+- [No typeclasses](http://www.haskellforall.com/2012/05/scrap-your-type-classes.html)
+
+### Erlang/Elixir
+- Documentation as a first class citizen
+- Battle-tested distribution system that just works
+
+### Additional
+- Foreign function calls type saftety
+- Foreign function calls purity checks
+- Dependency system based on GitHub
