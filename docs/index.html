@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Basic types</title>
+    <title>Elchemy</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="fonts.css">
     <link rel="stylesheet" href="theme.css">
@@ -10,7 +10,7 @@
     
   </head>
 
-  <body class="node-basic-types node">
+  <body class="node homepage">
 
     <header class="masthead">
       <h1><a href="index.html">Elchemy</a></h1>
@@ -45,108 +45,69 @@
 <li><a href="calling-elixir.html">Calling Elixir</a></li>
 </ul>
 </li>
-<li><a href="about.html">About</a></li>
 </ul>
       </nav>
     </header>
 
     <article class="main">
       <header class="title">
-        <h1>Basic types</h1>
+        <h1>Elchemy</h1>
+        
+          <p class="subtitle">What is it exactly?</p>
         
         <hr>
       </header>
       <p>
-Because Elm and Elixir share a lot of common basic types, there is no need to redefine all of them for Elchemy need. For simplicity and interoperability some of the standard types translate directly to each other.
+Elchemy is a set of tools and frameworks, designed to provide a language and an environment
+as close to <a href="http://elm-lang.org">Elm programming language</a> as possible, to build server applications
+in a DSL-like manner for Erlang VM platform, with a readable and efficient Elixir code as an output.
 </p>
+<h2 id="features">
+Features
+</h2>
 <p>
-Here is a table of all standard types used in Elchemy environment and their Elixir equivalents:
+Elchemy inherits many values from its parents: Elm and Elixir
 </p>
+<h3 id="elm">
+Elm
+</h3>
 <ul>
 <li>
-<p>
-Elchemy =&gt; Elixir
-</p>
+ML like syntax maximizing expressiveness with additional readability and simplicity constraints
 </li>
 <li>
-<p>
-a =&gt; any()
-</p>
+Static typing with type inference
 </li>
 <li>
-<p>
-comparable =&gt; term()
-</p>
+Tagged union types and type aliases with type parameters (aka generic types)
 </li>
 <li>
-<p>
-Int =&gt; integer()
-</p>
+<a href="http://www.haskellforall.com/2012/05/scrap-your-type-classes.html">No typeclasses</a>
+</li>
+</ul>
+<h3 id="erlang-elixir">
+Erlang/Elixir
+</h3>
+<ul>
+<li>
+Documentation as a first class citizen
 </li>
 <li>
-<p>
-Float =&gt; number()
-</p>
+Battle-tested distribution system that just works
+</li>
+</ul>
+<h3 id="additional">
+Additional
+</h3>
+<ul>
+<li>
+Foreign function calls type saftety
 </li>
 <li>
-<p>
-number =&gt; number()
-</p>
+Foreign function calls purity checks
 </li>
 <li>
-<p>
-Bool =&gt; boolean()
-</p>
-</li>
-<li>
-<p>
-Char =&gt; integer()
-</p>
-</li>
-<li>
-<p>
-String =&gt; String.t()
-</p>
-</li>
-<li>
-<p>
-List x =&gt; list()
-</p>
-</li>
-<li>
-<p>
-(1, 2) =&gt; {1, 2}
-</p>
-</li>
-<li>
-<p>
-Maybe Int =&gt; {integer()} | nil
-</p>
-</li>
-<li>
-<p>
-Just x =&gt; {x}
-</p>
-</li>
-<li>
-<p>
-Nothing =&gt; nil
-</p>
-</li>
-<li>
-<p>
-Result x y =&gt; {:ok, y} | {:error, x}
-</p>
-</li>
-<li>
-<p>
-Ok x =&gt; {:ok, x}
-</p>
-</li>
-<li>
-<p>
-Err x =&gt; {:error, x}
-</p>
+Dependency system based on GitHub
 </li>
 </ul>
 
