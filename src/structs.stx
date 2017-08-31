@@ -46,6 +46,10 @@ That way we can define our psuedo-inheritance and polymorphism for more advanced
 Would resolve to
 
 ::: elixir
-    @spec human :: %{ salary : integer(), name : String.t, age : integer()}
+    @spec human :: %{
+      salary : integer(),
+      name : String.t,
+      age : integer()
+    }
 
 But be advised that using this "polymorhpic" approach strips us from the abilty to use type aliases as constructors.
